@@ -1,0 +1,32 @@
+ /* HomePage.module.css */
+
+/* Mobile Styles (320px - 767px) */
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .homeContainer {
+    width: 100%; /* Full width of the viewport */
+    height: auto;
+    padding: 16px;
+    background-color: #FFFFFF;
+  }
+}
+
+/* Tablet Styles (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .homeContainer {
+    width: 70%; /* 70% width of the viewport */
+    max-width: 600px; /* Maximum width to maintain readability */
+    margin: 0 auto;
+    background-color: #FFFFFF;
+  }
+}
+
+/* Desktop Styles (1440px and above) */
+@media screen and (min-width: 1440px) {
+  .homeContainer {
+    width: 60%; /* 60% width of the viewport */
+    max-width: 1200px; /* Maximum width for desktop layout */
+    margin: 0 auto;
+    padding: 48px;
+    background-color: #FFFFFF;
+  }
+}

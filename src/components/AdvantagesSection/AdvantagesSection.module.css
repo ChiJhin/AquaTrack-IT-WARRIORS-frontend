@@ -1,1 +1,19 @@
 /* background image */
+.advantagesSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    width: 343px;
+    height: 353px;
+    border-radius: 30px;
+  }
+  
+  .imageContainer {
+    width: 100%;
+    border-radius: 30px !important;
+    background-image: url('../../assets/mobile/girl.jpg');
+    background-size: cover;
+    background-position: center; 
+  }
+  

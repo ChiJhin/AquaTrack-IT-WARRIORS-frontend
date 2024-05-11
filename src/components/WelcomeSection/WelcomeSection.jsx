@@ -1,18 +1,27 @@
+import React from 'react';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
+import styles from './WelcomeSection.module.css';
 
 export default function WelcomeSection() {
   return (
-    <div>
+    <section className={styles.welcomeSection}>
       <Logo />
-      <h1>Water consumption tracker</h1>
-      <h2>Record daily water intake and track</h2>
-      <Link to="/signup">
-        <button type="submit">Try tracker</button>
-      </Link>
-      <Link to="/signin">
-        <button type="submit">Sign In</button>
-      </Link>
-    </div>
+       {/* Text Content */}
+       <div className={styles.textContent}>
+         <h2 className={styles.subtitle}>Record daily water intake and track</h2>
+         <h1 className={styles.mainTitle}>Water consumption tracker</h1>
+       </div>
+      
+      {/* Buttons */}
+      <div className={styles.ctaButtons}>
+        <Link to="/signup" className={styles.tryTrackerBtn}>
+          Try tracker
+        </Link>
+        <Link to="/signin" className={styles.signInBtn}>
+          Sign In
+        </Link>
+      </div>
+    </section>
   );
 }

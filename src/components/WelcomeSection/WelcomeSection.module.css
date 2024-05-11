@@ -1,0 +1,59 @@
+/* WelcomeSection.module.css */
+
+.welcomeSection {
+    margin-bottom: 16px;
+    border-radius: 30px;
+    background-color: #f0eff4;
+    padding: 20px;
+  }
+  
+  .mainTitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 38px;
+    line-height: 1; /* Use unitless line-height for better responsiveness */
+    letter-spacing: -1px; /* Specify units (e.g., px) for letter-spacing */
+    color: #323f47;
+  }
+  
+  .subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 6px; /* Specify units (e.g., px) for letter-spacing */
+    color: #2f2f2f;
+  }
+  
+  .ctaButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  
+  .tryTrackerBtn,
+  .signInBtn {
+    display: inline-block;
+    width: 48%; /* Adjust button width for responsiveness */
+    height: 46px;
+    text-align: center;
+    line-height: 46px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: -1px; /* Specify units (e.g., px) for letter-spacing */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 30px;
+  }
+  
+  .tryTrackerBtn{
+    color: #323f47;
+    background-color: var(--accent);
+  }
+  
+  
+  .signInBtn {
+    color: #323f47;
+    background-color: var(--main-white) 
+  }
+  

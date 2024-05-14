@@ -3,6 +3,7 @@ import Modal from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
 import { deleteWater } from '../../../redux/water/operations';
 import { showNotification } from '../../../utils/notification';
+import axios from 'axios';
 import css from './DeleteWaterModal.module.css';
 
 export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
@@ -13,12 +14,12 @@ export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
     setIsDeleting(true);
 
     try {
-      // Simulate API request to delete water entry (replace with actual API call)
-      await dispatch(deleteWater(entryId));// Assuming entryId is provided as a prop
+      // Make API request to delete water entry
+      await axios.delete(`http://localhost:3001/api/water/${entryId}`);
 
       // Show success notification
       showNotification('Water entry deleted successfully!', 'success');
-
+      dispatch(deleteWaterSuccess(entryId));
       // Close modal after successful deletion
       closeModal();
     } catch (error) {

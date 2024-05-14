@@ -29,6 +29,16 @@ const waterSlice = createSlice({
     loading: false,
     error: null,
   },
+
+  reducers: {
+    deleteWaterSuccess(state, action) {
+      // Handle success case for deleteWater
+      state.loading = false;
+      state.error = null;
+      state.dayWater = []; // Clear dayWater after successful deletion
+    },
+  },
+
   extraReducers: builder => {
     builder
       //add
@@ -78,4 +88,5 @@ const waterSlice = createSlice({
   },
 });
 
+export const { deleteWaterSuccess } = waterSlice.actions;
 export const waterReducer = waterSlice.reducer;

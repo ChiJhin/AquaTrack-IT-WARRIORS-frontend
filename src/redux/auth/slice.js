@@ -140,3 +140,4 @@ const authPersistConfig = {
 
 const persistedReducer = persistReducer(authPersistConfig, authSlice.reducer);
 export const authReducer = persistedReducer;
+ 

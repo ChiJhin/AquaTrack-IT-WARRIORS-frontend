@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = '/users';
+axios.defaults.baseURL = 
+'https://aquatrack-it-warriors-backend.onrender.com/api/users'; 
 
 // add JWT
 function setAuthHeader(token) {

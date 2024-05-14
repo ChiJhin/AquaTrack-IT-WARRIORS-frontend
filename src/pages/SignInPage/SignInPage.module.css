@@ -1,1 +1,13 @@
 /* SignInPage styles */
+.item {
+    display: none;
+  }
+  
+  @media screen and (min-width: 1440px) {
+    .item {
+      display: block;
+    }
+    .container {
+      display: flex;
+    }
+  }

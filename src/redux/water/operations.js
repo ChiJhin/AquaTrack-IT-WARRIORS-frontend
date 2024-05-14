@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { deleteWaterSuccess } from './slice';
 
-axios.defaults.baseURL = '/water';
+axios.defaults.baseURL = 
+'https://aquatrack-it-warriors-backend.onrender.com/api/water';
+
 
 export const addWater = createAsyncThunk(
   'contacts/addWater',
@@ -31,7 +34,8 @@ export const deleteWater = createAsyncThunk(
   'contacts/deleteWater',
   async (day, thunkAPI) => {
     try {
-      const response = await axios.delete('/update',{ data: { day } });
+      const response = await axios.delete(`/update/${day}` );
+      thunkAPI.dispatch(deleteWaterSuccess(day)); // Dispatch deleteWaterSuccess action with day as payload
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

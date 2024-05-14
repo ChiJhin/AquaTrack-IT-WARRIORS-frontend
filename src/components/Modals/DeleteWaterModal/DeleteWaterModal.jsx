@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
+import Modal from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
-import { deleteWaterRecord } from '../api';
-import { updateWaterData } from '../redux/actions';
-import './DeleteWaterModal.css';
+import { deleteWater } from '../../../redux/water/operations';
+import { showNotification } from '../../../utils/notification';
+import css from './DeleteWaterModal.module.css';
 
-export default function DeleteWaterModal({ recordId, onClose }) {
+export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
   const dispatch = useDispatch();
-  const [backendError, setBackendError] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
+    setIsDeleting(true);
+
     try {
-      await deleteWaterRecord(recordId); // API call to delete record
-      dispatch(updateWaterData(null)); // Update Redux state after deletion
-      onClose(); // Close the modal after successful deletion
+      // Simulate API request to delete water entry (replace with actual API call)
+      await dispatch(deleteWater(entryId));// Assuming entryId is provided as a prop
+
+      // Show success notification
+      showNotification('Water entry deleted successfully!', 'success');
+
+      // Close modal after successful deletion
+      closeModal();
     } catch (error) {
-      setBackendError('An error occurred. Please try again.');
+      // Show error notification
+      showNotification('Failed to delete water entry. Please try again.', 'error');
+      console.error('Delete operation failed:', error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   return (
-    <div className="delete-water-modal">
-      <h2 className="modal-title">Delete Entry</h2>
-      <p className="modal-message">Are you sure you want to delete the entry?</p>
-      <div className="modal-buttons">
-        <button className="delete-button" onClick={handleDelete}>
-          Delete
+    <Modal isOpen={isOpen} closeModal={closeModal} styleVariant="modalDelete">
+      <h3 className={css.title}>Delete entry</h3>
+      <p className={css.question}>Are you sure you want to delete the entry?</p>
+      <div className={css.buttonGroup}>
+        <button
+          className={css.deleteButton}
+          onClick={handleDelete}
+          disabled={isDeleting}
+        >
+          {isDeleting ? 'Deleting...' : 'Delete'}
         </button>
-        <button className="cancel-button" onClick={onClose}>
+        <button className={css.cancelButton} onClick={closeModal} disabled={isDeleting}>
           Cancel
         </button>
       </div>
-      {backendError && (
-        <div className="error-notification">
-          <p>{backendError}</p>
-          <button onClick={() => setBackendError(null)}>Close</button>
-        </div>
-      )}
-    </div>
+    </Modal>
   );
-};
-
-
-
-
-
-
-
+}

@@ -31,7 +31,7 @@ export const deleteWater = createAsyncThunk(
   'contacts/deleteWater',
   async (day, thunkAPI) => {
     try {
-      const response = await axios.delete('/update', day);
+      const response = await axios.delete('/update',{ data: { day } });
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

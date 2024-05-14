@@ -15,7 +15,7 @@ export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
 
     try {
       // Make API request to delete water entry
-      await axios.delete(`http://localhost:3001/api/water/${entryId}`);
+      await axios.delete(`https://aquatrack-it-warriors-backend.onrender.com/api/water/${entryId}`);
 
       // Show success notification
       showNotification('Water entry deleted successfully!', 'success');

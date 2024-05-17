@@ -38,7 +38,7 @@ const authSlice = createSlice({
     loading: false,
     error: null,
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -60,7 +60,7 @@ const authSlice = createSlice({
       })
       .addCase(login.pending, handlePending)
       .addCase(login.rejected, handleRejected)
-      .addCase(logout.fulfilled, state => {
+      .addCase(logout.fulfilled, (state) => {
         state.user = {
           name: null,
           email: null,
@@ -78,7 +78,7 @@ const authSlice = createSlice({
       })
       .addCase(logout.pending, handlePending)
       .addCase(logout.rejected, handleRejected)
-      .addCase(refresh.pending, state => {
+      .addCase(refresh.pending, (state) => {
         state.isRefreshing = true;
         state.loading = true;
       })
@@ -89,7 +89,7 @@ const authSlice = createSlice({
         state.error = null;
         state.loading = false;
       })
-      .addCase(refresh.rejected, state => {
+      .addCase(refresh.rejected, (state) => {
         state.isRefreshing = false;
         state.loading = false;
         state.error = null;
@@ -100,11 +100,11 @@ const authSlice = createSlice({
         state.error = null;
         state.loading = false;
       })
-      .addCase(updateToken.pending, state => {
+      .addCase(updateToken.pending, (state) => {
         state.isRefreshing = true;
         state.loading = true;
       })
-      .addCase(updateToken.rejected, state => {
+      .addCase(updateToken.rejected, (state) => {
         state.user = {
           name: null,
           email: null,
@@ -131,7 +131,6 @@ const authSlice = createSlice({
   },
 });
 
-// Persisting token field from auth slice to localstorage
 const authPersistConfig = {
   key: 'auth',
   storage,

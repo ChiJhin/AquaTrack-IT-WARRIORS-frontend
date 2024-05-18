@@ -19,7 +19,7 @@ function handleRejected(state, action) {
 const waterSlice = createSlice({
   name: 'water',
   initialState: {
-    dayWater: [],
+    dayWater: null,
     monthWater: [],
     day: null,
     month: {
@@ -29,7 +29,7 @@ const waterSlice = createSlice({
     loading: false,
     error: null,
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       //add
       .addCase(addWater.pending, handlePending)

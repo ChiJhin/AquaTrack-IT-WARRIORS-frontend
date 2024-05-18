@@ -96,6 +96,15 @@ color: #323f47;
   } */
 
 /* =========== */
+.title {
+  width: 248px;
+  color: var(--main);
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  font-weight: var(--bold);
+  margin-bottom: 10px;
+}
 
 .waterForm {
   width: 343px;
@@ -235,6 +244,15 @@ color: #323f47;
 }
 
 @media screen and (min-width: 768px) {
+  .title {
+    width: 347px;
+    font-size: 28px;
+
+    line-height: 32px;
+
+    margin-bottom: 20px;
+  }
+
   .waterForm {
     width: 518px;
     height: 587px;

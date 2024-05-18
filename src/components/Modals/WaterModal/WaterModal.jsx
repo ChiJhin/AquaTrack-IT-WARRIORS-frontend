@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { IconPlus } from '../../Icons/IconPlus';
 import { IconMinus } from '../../Icons/IconMinus';
-import { FormTitle } from '../FormTitle/FormTitle';
+
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { selectDayWater } from '../../../redux/water/selectors';
+import { addWater } from '../../../redux/water/operations';
+import { editWater } from '../../../redux/water/operations';
 
 import css from './WaterModal.module.css';
 
@@ -13,6 +17,9 @@ const schema = yup.object().shape({
 });
 
 export default function WaterModal() {
+  const dispatch = useDispatch();
+  const waterValueDay = useSelector(selectDayWater);
+  console.log(waterValueDay);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
 
   const {
@@ -26,7 +33,7 @@ export default function WaterModal() {
     resolver: yupResolver(schema),
     defaultValues: {
       time: getCurrentTime(),
-      value: 50,
+      value: waterValueDay ?? 50,
     },
   });
 
@@ -50,9 +57,18 @@ export default function WaterModal() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // const submitForm = (data) => {
+  //   console.log(data);
+  // };
+
   const submitForm = (data) => {
-    console.log(data);
+    if (!waterValueDay) {
+      dispatch(addWater(data));
+    } else {
+      dispatch(editWater(data));
+    }
   };
+
   const decrement = () => {
     const currentValue = getValues('value');
     const value = currentValue - 50;
@@ -72,8 +88,12 @@ export default function WaterModal() {
   return (
     <form className={css.waterForm} onSubmit={handleSubmit(submitForm)}>
       <div className={css.formWrapper}>
-        <FormTitle>Add water</FormTitle>
-        <p className={css.waterTitle}>Choose a value</p>
+        <h2 className={css.title}>
+          {!waterValueDay ? 'Add water' : 'Edit the entered amount of water'}
+        </h2>
+        <p className={css.waterTitle}>
+          {!waterValueDay ? 'Chouse a value' : 'Correct entered data:'}
+        </p>
         <span className={css.waterAmount}>Amount of water:</span>
         <div className={css.wrapperAmount}>
           <button

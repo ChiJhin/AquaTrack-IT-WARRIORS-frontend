@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteWater } from '../../../redux/water/operations';
+import Modal from '../Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { chooseMonth, deleteWater } from '../../../redux/water/operations';
 import { showNotification } from '../../../utils/notification';
+import axios from 'axios';
 import css from './DeleteWaterModal.module.css';
 import { selectMonth } from '../../../redux/water/selectors';
-
-const title = 'Delete entry';
-
-
 
 export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
   const dispatch = useDispatch();
@@ -18,22 +16,27 @@ export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
     setIsDeleting(true);
 
     try {
-      // Dispatch the deleteWater thunk
-      await dispatch(deleteWater({ _id: entryId })).unwrap();
+      // Make API request to delete water entry
+      // await axios.delete(
+      //   `https://aquatrack-it-warriors-backend.onrender.com/api/water/${entryId}`
+      // );
 
       // Show success notification
       showNotification('Water entry deleted successfully!', 'success');
-   
-
-     
-
+      dispatch(deleteWater(entryId));
+      setTimeout(() => {
+        // wait to update database
+        dispatch(chooseMonth(month));
+      }, 200);
 
       // Close modal after successful deletion
       closeModal();
     } catch (error) {
       // Show error notification
-      showNotification('Failed to delete water entry. Please try again.', 'error');
-     
+      showNotification(
+        'Failed to delete water entry. Please try again.',
+        'error'
+      );
       console.error('Delete operation failed:', error);
     } finally {
       setIsDeleting(false);
@@ -41,28 +44,25 @@ export default function DeleteWaterModal({ isOpen, closeModal, entryId }) {
   };
 
   return (
-  <>
-      <div className={css.modalBox}>
-
-        <h2 className={css.title}>{title}</h2>
-        <p>Are you sure you want to delete the entry?</p>
-
-       <div className={css.btnBox}>
-
-         <button className={css.btn}
+    <Modal isOpen={isOpen} closeModal={closeModal} styleVariant="modalDelete">
+      <h3 className={css.title}>Delete entry</h3>
+      <p className={css.question}>Are you sure you want to delete the entry?</p>
+      <div className={css.buttonGroup}>
+        <button
+          className={css.deleteButton}
           onClick={handleDelete}
-          disabled={isDeleting}>
-             {isDeleting ? 'Deleting...' : 'Delete'}   
-         </button>
-
-         <button className={css.btnCancel}
-         onClick={closeModal}
-         disabled={isDeleting}>
-            Cancel
-         </button>
-       </div>
-     </div>
-  </>
+          disabled={isDeleting}
+        >
+          {isDeleting ? 'Deleting...' : 'Delete'}
+        </button>
+        <button
+          className={css.cancelButton}
+          onClick={closeModal}
+          disabled={isDeleting}
+        >
+          Cancel
+        </button>
+      </div>
+    </Modal>
   );
-} 
-  
+}
